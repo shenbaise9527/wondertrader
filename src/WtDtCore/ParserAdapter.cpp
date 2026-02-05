@@ -231,6 +231,7 @@ bool ParserAdapter::init(const char* id, WTSVariant* cfg)
 				for (; it != ayContract->end(); it++)
 				{
 					WTSContractInfo* contract = STATIC_CONVERT(*it, WTSContractInfo*);
+					WTSLogger::log_dyn("parser", _id.c_str(), LL_INFO, "[{}] {} added to sublist...", _id.c_str(), contract->getFullCode());
 					contractSet.insert(contract->getFullCode());
 				}
 
@@ -350,6 +351,7 @@ void ParserAdapter::handleQuote( WTSTickData *quote, uint32_t procFlag )
 	if (contract == NULL)
 		return;
 
+	WTSLogger::log_dyn("parser", _id.c_str(), LL_INFO, "[{}] tick received: {} {} {} {}", _id.c_str(), quote->code(), quote->price(), quote->volume(), quote->actiontime());
 	if (!_dt_mgr->writeTick(quote, procFlag))
 		return;
 

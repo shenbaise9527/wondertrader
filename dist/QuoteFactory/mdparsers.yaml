@@ -1,9 +1,9 @@
 parsers:
--   active: true
-    broker: '9999'
-    code: ''
-    front: tcp://180.168.146.187:10211
+  - active: true
+    broker: "9999"
+    code: ""
+    front: tcp://182.254.243.31:30011
     id: parser
     module: ParserCTP
-    pass: yoursimnowaccount
-    user: yoursimnowpassword
+    pass: xxxxxxxx
+    user: 123199

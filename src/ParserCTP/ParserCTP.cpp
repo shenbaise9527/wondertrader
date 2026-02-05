@@ -133,12 +133,17 @@ bool ParserCTP::init(WTSVariant* config)
 	const char* creatorName = "?CreateFtdcMdApi@CThostFtdcMdApi@@SAPAV1@PBD_N1@Z";
 #	endif
 #else
-	const char* creatorName = "_ZN15CThostFtdcMdApi15CreateFtdcMdApiEPKcbb";
+	// const char* creatorName = "_ZN15CThostFtdcMdApi15CreateFtdcMdApiEPKcbb";
+	const char* creatorName = "_ZN15CThostFtdcMdApi15CreateFtdcMdApiEPKcbbb";
 #endif
 	m_funcCreator = (CTPCreator)DLLHelper::get_symbol(m_hInstCTP, creatorName);
 	m_pUserAPI = m_funcCreator(path.c_str(), false, false);
 	m_pUserAPI->RegisterSpi(this);
 	m_pUserAPI->RegisterFront((char*)m_strFrontAddr.c_str());
+	if(m_sink)
+	{
+		write_log(m_sink, LL_INFO, "[ParserCTP] Market data server registered front: {}", m_strFrontAddr.c_str());
+	}
 
 	return true;
 }
@@ -153,6 +158,7 @@ bool ParserCTP::connect()
 	if(m_pUserAPI)
 	{
 		m_pUserAPI->Init();
+		write_log(m_sink, LL_INFO, "[ParserCTP] Market data server init");
 	}
 
 	return true;
@@ -173,6 +179,10 @@ bool ParserCTP::disconnect()
 void ParserCTP::OnRspError( CThostFtdcRspInfoField *pRspInfo, int nRequestID, bool bIsLast )
 {
 	IsErrorRspInfo(pRspInfo);
+	if(m_sink)
+	{
+		write_log(m_sink, LL_ERROR, "[ParserCTP] Rsp error: {}({})", pRspInfo->ErrorMsg, pRspInfo->ErrorID);
+	}
 }
 
 void ParserCTP::OnFrontConnected()
@@ -386,6 +396,8 @@ void ParserCTP::ReqUserLogin()
 	{
 		if(m_sink)
 			write_log(m_sink, LL_ERROR, "[ParserCTP] Sending login request failed: {}", iResult);
+	} else {
+		write_log(m_sink, LL_INFO, "[ParserCTP] Sending login request success");
 	}
 }
 

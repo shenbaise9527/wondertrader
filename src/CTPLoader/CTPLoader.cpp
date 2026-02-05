@@ -1,7 +1,7 @@
 ﻿#include <string>
 #include <map>
 //v6.3.15
-#include "../API/CTP6.3.15/ThostFtdcTraderApi.h"
+#include "../API/CTP6.7.11/ThostFtdcTraderApi.h"
 #include "TraderSpi.h"
 
 #include "../Share/IniHelper.hpp"
@@ -240,10 +240,14 @@ int run(const char* cfgfile, bool bAsync = false, bool isFile = true)
 	g_ctpCreator = (CTPCreator)DLLHelper::get_symbol(dllInst, "?CreateFtdcTraderApi@CThostFtdcTraderApi@@SAPAV1@PBD@Z");
 #	endif
 #else
-	g_ctpCreator = (CTPCreator)DLLHelper::get_symbol(dllInst, "_ZN19CThostFtdcTraderApi19CreateFtdcTraderApiEPKc");
+	// g_ctpCreator = (CTPCreator)DLLHelper::get_symbol(dllInst, "_ZN19CThostFtdcTraderApi19CreateFtdcTraderApiEPKc");
+	g_ctpCreator = (CTPCreator)DLLHelper::get_symbol(dllInst, "_ZN19CThostFtdcTraderApi19CreateFtdcTraderApiEPKcb");
 #endif
-	if (g_ctpCreator == NULL)
+	if (g_ctpCreator == NULL) {
 		printf("Loading CreateFtdcTraderApi failed\r\n");
+
+		return -1;
+	}
 
 	std::string flowPath = fmtutil::format("./CTPFlow/{}/{}/", BROKER_ID, INVESTOR_ID);
 	boost::filesystem::create_directories(flowPath.c_str());

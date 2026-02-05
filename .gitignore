@@ -1,1 +1,6 @@
-dist/*
+dist/linux/*
+build/*
+.idea/*
+.vscode/*
+.cache/*
+.vimspector.json

@@ -120,6 +120,7 @@ void CTraderSpi::ReqAuth()
 	//strcpy(req.UserProductInfo, m_strProdInfo.c_str());
 	strcpy(req.AuthCode, AUTHCODE.c_str());
 	strcpy(req.AppID, APPID.c_str());
+	std::cout<<"brokerId: "<<BROKER_ID<<" userId: "<<INVESTOR_ID<<" appId: "<<APPID<<" AuthCode: "<<AUTHCODE<<std::endl;
 	int iResult = pUserApi->ReqAuthenticate(&req, ++iRequestID);
 	std::cerr << "--->>> Requesting authentication: " << ((iResult == 0) ? "succeed" : "failed") << std::endl;
 }
@@ -140,6 +141,7 @@ void CTraderSpi::ReqUserLogin()
 	strcpy(req.BrokerID, BROKER_ID.c_str());
 	strcpy(req.UserID, INVESTOR_ID.c_str());
 	strcpy(req.Password, PASSWORD.c_str());
+	std::cout<<"Login req, BrokerId: "<< BROKER_ID <<" UserId: "<<INVESTOR_ID<<" Password: "<<PASSWORD<<std::endl;
 	int iResult = pUserApi->ReqUserLogin(&req, ++iRequestID);
 	std::cerr << "--->>> Requesting user login: " << ((iResult == 0) ? "succeed" : "failed") << std::endl;
 }

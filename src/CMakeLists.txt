@@ -43,6 +43,8 @@ ELSE (GNUCC)
 		MESSAGE(STATUS "MyDepends is at /home/mydeps")
 	ENDIF()
 
+	set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -O0")
+    set(CMAKE_C_FLAGS_DEBUG "${CMAKE_C_FLAGS_DEBUG} -g -O0")
 	SET(INCS ${MyDeps}/include)
 	SET(LNKS ${MyDeps}/lib)
 
@@ -113,6 +115,9 @@ ADD_SUBDIRECTORY(WtUftRunner)
 
 ADD_SUBDIRECTORY(WtLatencyHFT)
 ADD_SUBDIRECTORY(WtLatencyUFT)
+
+ADD_SUBDIRECTORY(WtCtaStraFact)
+ADD_SUBDIRECTORY(WtHftStraFact)
 
 #test projects
 ADD_SUBDIRECTORY(TestBtPorter)

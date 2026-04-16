@@ -133,8 +133,9 @@ bool ParserCTP::init(WTSVariant* config)
 	const char* creatorName = "?CreateFtdcMdApi@CThostFtdcMdApi@@SAPAV1@PBD_N1@Z";
 #	endif
 #else
+	const char* creatorName = "_ZN15CThostFtdcMdApi15CreateFtdcMdApiEPKcbb";
+	// const char* creatorName = "_ZN15CThostFtdcMdApi15CreateFtdcMdApiEPKcbbb";
 	// const char* creatorName = "_ZN15CThostFtdcMdApi15CreateFtdcMdApiEPKcbb";
-	const char* creatorName = "_ZN15CThostFtdcMdApi15CreateFtdcMdApiEPKcbbb";
 #endif
 	m_funcCreator = (CTPCreator)DLLHelper::get_symbol(m_hInstCTP, creatorName);
 	m_pUserAPI = m_funcCreator(path.c_str(), false, false);

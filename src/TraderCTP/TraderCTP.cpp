@@ -134,8 +134,9 @@ bool TraderCTP::init(WTSVariant* params)
 	const char* creatorName = "?CreateFtdcTraderApi@CThostFtdcTraderApi@@SAPAV1@PBD@Z";
 #	endif
 #else
+	const char* creatorName = "_ZN19CThostFtdcTraderApi19CreateFtdcTraderApiEPKc";
+	// const char* creatorName = "_ZN19CThostFtdcTraderApi19CreateFtdcTraderApiEPKcb";
 	// const char* creatorName = "_ZN19CThostFtdcTraderApi19CreateFtdcTraderApiEPKc";
-	const char* creatorName = "_ZN19CThostFtdcTraderApi19CreateFtdcTraderApiEPKcb";
 #endif
 	m_funcCreator = (CTPCreator)DLLHelper::get_symbol(m_hInstCTP, creatorName);
 
